@@ -1,2 +1,2 @@
-# otus_docker
-otus_docker
+# otus_opencart
+Otus Python QA opencart
