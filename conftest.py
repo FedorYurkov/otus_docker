@@ -49,7 +49,7 @@ def app(request):
     executor = request.config.getoption("--executor")
     vnc = request.config.getoption("--vnc")
 
-    driver = driver_factory(browser, executor, vnc)
+    driver = driver_factory(browser, bversion, executor, vnc)
     url = request.config.getoption("--url")
 
     application = App(driver=driver, base_url=url)
