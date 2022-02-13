@@ -8,12 +8,13 @@ from application.app import App
 
 def pytest_addoption(parser):
     parser.addoption("--browser", action="store", default="chrome")
+    parser.addoption("--bversion", action="store", default="98.0")
     parser.addoption("--url", action="store", default="https://demo.opencart.com")
     parser.addoption("--executor", action="store", default="local")
     parser.addoption("--vnc", action="store_true", default=True)
 
 
-def driver_factory(browser, executor, vnc):
+def driver_factory(browser, bversion, executor, vnc):
     if executor == "local":
         if browser == "chrome":
             driver = webdriver.Chrome()
@@ -27,6 +28,7 @@ def driver_factory(browser, executor, vnc):
         executor_url = f"http://{executor}:4444/wd/hub"
         caps = {
             "browserName": browser,
+            "browserVersion": bversion,
             "selenoid:options": {
                 "enableVNC": vnc
             }
@@ -43,6 +45,7 @@ def driver_factory(browser, executor, vnc):
 @pytest.fixture
 def app(request):
     browser = request.config.getoption("--browser")
+    bversion = request.config.getoption("--bversion")
     executor = request.config.getoption("--executor")
     vnc = request.config.getoption("--vnc")
 
